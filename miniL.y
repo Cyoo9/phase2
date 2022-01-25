@@ -11,7 +11,6 @@ void yyerror(const char *msg);
 %error-verbose
 %locations
 
-%define parse.error varbose
 %token FUNCTION 
 %token BEGIN_PARAMS
 %token END_PARAMS

@@ -1,4 +1,4 @@
-CC = gcc
+C = gcc
 CFLAGS = -g -O0 -std=c99
 
 miniL: miniL-lex.o miniL-parser.o
