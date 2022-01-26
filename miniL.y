@@ -61,7 +61,21 @@ void yyerror(const char *msg);
 %% 
 
   /* write your rules here */
-
+prog_start: functions
+ |
+ ;
+functions: function functions 
+ |
+ ;
+function: FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY statements END_BODY
+ |
+ ;
+declarations: declaration SEMICOLON declarations 
+ | 
+ ;
+ident: IDENT yytext 
+ |
+ ;
 %% 
 
 int main(int argc, char **argv) {
