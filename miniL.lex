@@ -88,9 +88,3 @@ _[a-zA-Z]+[a-zA-Z0-9]*  { printf("Error at line %d, column %d: identifier \"%s\"
 %%
 	/* C functions used in lexer */
 
-int main(int argc, char ** argv)
-{
-  
-   yylex();
-}
-
