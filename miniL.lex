@@ -5,7 +5,7 @@ int columnNum = 0;
 #include <string.h>
 #include "miniL-parser.h" 
 extern char *identToken;
-extern int *numberToken;
+extern int numberToken;
 
 %}
 
@@ -42,10 +42,7 @@ digit [0-9]
 "+" {return ADD; columnNum++;}
 {digit}+ {
   columnNum++;
-  char token[yyleng];
-  strcpy(token, yytext);
-  yylval.op_val = token;
-  numberToken = atoi(yytext); 
+  yylval.numberToken = atoi(yytext);
   return NUMBER;
 }
 "-" {return SUB; columnNum++;}
@@ -69,10 +66,7 @@ digit [0-9]
 ##.+ {columnNum++;}
 [a-zA-Z]+[_a-zA-Z0-9]+[a-zA-Z0-9]+  {
    columnNum++;
-   char token[yyleng];
-   strcpy(token, yytext);
-   yylval.op_val = token;
-   identToken = yytext; 
+   yylval.identToken = yytext; 
    return IDENT;
 }
 [0-9][a-zA-Z]+[_a-zA-Z0-9]+[a-zA-Z0-9]+ {printf("Error at line %d, column %d: identifier \"%s\" must begin with a letter\n", lineNum, columnNum, yytext); exit(1);} 
