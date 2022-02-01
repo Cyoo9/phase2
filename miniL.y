@@ -1,5 +1,6 @@
     /* cs152-miniL phase2 */
 %{
+#include <stdio.h>
 extern int yylex(); 
 void yyerror(const char *msg);
 char *identToken;
@@ -61,7 +62,7 @@ int numberToken;
 %token ASSIGN
 %token <op_val> NUMBER
 %token <op_val> IDENT
-%type <op_val> symbol
+%token var
 
 /* %start program */
 
@@ -95,60 +96,12 @@ statement SEMICOLON
   printf("statements -> statement ; statements\n");
 };
 
-statements:
-statement SEMICOLON
-{
-  printf("statements -> statement ;\n");
-}
-| statement SEMICOLON statements
-{
-  printf("statements -> statement ; statements\n");
+statement: var ASSIGN expression {
+printf("statement ->  Var ASSIGN expression\n"); 
 };
 
-statement:
-IDENT ASSIGN symbol ADD symbol
-{
-  printf("statement -> IDENT := symbol + symbol\n");
-}
-| IDENT ASSIGN symbol SUB symbol
-{
-  printf("statement -> IDENT := symbol - symbol\n");
-}
-| IDENT ASSIGN symbol MULT symbol
-{
-  printf("statement -> IDENT := symbol * symbol\n");
-}
-| IDENT ASSIGN symbol DIV symbol
-{
-  printf("statement -> IDENT := symbol / symbol\n");
-}
-| IDENT ASSIGN symbol MOD symbol
-{
-  printf("statement -> IDENT := symbol %% symbol\n");
-}
+expression: var ADD var { printf("expression -> var ADD var\n"); };
 
-| IDENT ASSIGN symbol
-{
-  printf("statement -> IDENT := symbol\n");
-}
-
-| WRITE IDENT
-{
-  printf("statement -> WRITE IDENT\n");
-}
-;
-
-symbol:
-IDENT
-{
-  printf("symbol -> IDENT %s\n", $1);
-  $$ = $1;
-}
-| NUMBER
-{
-  printf("symbol -> NUMBER %s\n", $1);
-  $$ = $1;
-}
 
 %% 
 
