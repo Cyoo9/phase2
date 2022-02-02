@@ -60,8 +60,8 @@ int numberToken;
 %token L_SQUARE_BRACKET
 %token R_SQUARE_BRACKET
 %left ASSIGN
-%token <identToken> NUMBER
-%token <numberToken> IDENT
+%token <identToken> IDENT
+%token <numberToken> NUMBER
 
 /* %start program */
 
