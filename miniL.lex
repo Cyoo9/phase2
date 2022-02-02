@@ -4,8 +4,6 @@ int lineNum = 1;
 int columnNum = 0;
 #include <string.h>
 #include "miniL-parser.h" 
-extern char *identToken;
-extern int numberToken;
 
 %}
 
@@ -64,7 +62,7 @@ digit [0-9]
 "]" {return R_SQUARE_BRACKET; columnNum++;}
 ":=" {return ASSIGN; columnNum++;}
 ##.+ {columnNum++;}
-[a-zA-Z]+[_a-zA-Z0-9]+[a-zA-Z0-9]+  {
+[a-zA-Z]+([_a-zA-Z0-9]*[a-zA-Z0-9]+)?  {
    columnNum++;
    yylval.identToken = yytext; 
    return IDENT;

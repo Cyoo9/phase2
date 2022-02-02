@@ -71,7 +71,7 @@ int numberToken;
 prog_start: %empty { printf("program -> epsilon\n"); }| functions {printf("program -> functions\n"); };
 
 functions: %empty { printf("functions -> epsilon\n"); } 
-| function functions { printf("functions -> function functions"); };
+| function functions { printf("functions -> function functions\n"); };
 
 function: FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY Statements END_BODY
 { printf("function -> FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY Statements END_BODY\n"); };
