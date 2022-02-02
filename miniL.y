@@ -13,7 +13,7 @@ char *identToken;
 int numberToken;
 
 }
-%define parse.error verbose
+%error-verbose
 %locations
 %start prog_start
 %token FUNCTION 
@@ -68,7 +68,7 @@ int numberToken;
 %% 
 
   /* write your rules here */
-prog_start: functions { printf("prog_start -> functions\n"); };
+prog_start: %empty { printf("program -> epsilon\n"); }| functions {printf("program -> functions\n"); };
 
 functions: %empty { printf("functions -> epsilon\n"); } 
 | function functions { printf("functions -> function functions"); };
@@ -76,11 +76,12 @@ functions: %empty { printf("functions -> epsilon\n"); }
 function: FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY Statements END_BODY
 { printf("function -> FUNCTION IDENT SEMICOLON BEGIN_PARAMS declarations END_PARAMS BEGIN_LOCALS declarations END_LOCALS BEGIN_BODY Statements END_BODY\n"); };
 
+declaration: identifiers COLON INTEGER {  printf("declaration -> identifiers COLON INTEGER\n"); }
+| identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {  printf("Declaration -> Identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF INTEGER;\n"); };
+
 declarations: %empty { printf("declarations -> epsilon\n"); } 
 | declaration SEMICOLON declarations { printf("declarations -> declaration SEMICOLON declarations\n"); };
 
-declaration: identifiers COLON INTEGER {  printf("declaration -> identifiers COLON INTEGER\n"); } 
-| identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {  printf("Declaration -> Identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER %d R_SQUARE_BRACKET OF INTEGER;\n"); };
 
 identifiers: Ident { printf("identifiers -> Ident\n"); };
 
@@ -88,11 +89,11 @@ identifiers: Ident { printf("identifiers -> Ident\n"); };
 Statements: 
 Statement SEMICOLON
 {
-  printf("statements -> statement\n");
+  printf("statements -> statement SEMICOLON\n");
 }
 | Statement SEMICOLON Statements
 {
-  printf("statements -> statement statements\n");
+  printf("statements -> statement SEMICOLON statements\n");
 };
 
 Statement: Var ASSIGN Expression
