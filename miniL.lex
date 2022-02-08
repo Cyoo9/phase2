@@ -30,8 +30,8 @@ digit [0-9]
 "beginloop" {return BEGINLOOP; columnNum++;}
 "endloop" {return ENDLOOP; columnNum++;}
 "continue" {return CONTINUE; columnNum++;}
-"break" {return BREAK; columnNum++;}
-"read" { printf("READ\n"); columnNum++;}
+"break" { return BREAK; columnNum++;}
+"read" { return READ; columnNum++;}
 "write" {return WRITE; columnNum++;}
 "not" {return NOT; columnNum++;}
 "true" {return TRUE; columnNum++;}

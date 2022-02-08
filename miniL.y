@@ -35,7 +35,6 @@ int numberToken;
 %token BEGINLOOP
 %token ENDLOOP
 %token CONTINUE
-%token BREAK
 %token WRITE
 %token NOT
 %token TRUE
@@ -46,6 +45,7 @@ int numberToken;
 %token MULT
 %token DIV
 %token MOD
+%token READ
 %left EQ
 %left NEQ
 %left LT
@@ -59,6 +59,7 @@ int numberToken;
 %token R_PAREN
 %token L_SQUARE_BRACKET
 %token R_SQUARE_BRACKET
+%token BREAK
 %left ASSIGN
 %token <identToken> IDENT
 %token <numberToken> NUMBER
@@ -96,7 +97,7 @@ Statement SEMICOLON
   printf("statements -> statement SEMICOLON statements\n");
 };
 
-Statement: Var ASSIGN Expression
+Statement: READ Vars {  printf("Statement -> Read\n");} | BREAK { printf("Statement -> Break\n");}  | Var ASSIGN Expression
 {printf("Statement -> Var ASSIGN Expression\n");}
                  | IF BoolExp THEN Statements ElseStatement ENDIF
 		 {printf("Statement -> IF BoolExp THEN Statements ElseStatement ENDIF\n");}		 
